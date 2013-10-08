@@ -112,7 +112,15 @@ namespace lowtone\log\users {
 					$current = 0 !== ($current = get_current_user_id()) ? $current : $id;
 
 					$write($current, "register", sprintf("Registered user %s", $userString($id))); 
-				});
+				}, 0);
+
+				// Delete user
+				
+				add_action("deleted_user", function($id) use ($write, $userString) {
+					$current = 0 !== ($current = get_current_user_id()) ? $current : $id;
+
+					$write($current, "delete", sprintf("Deleted user %s", $userString($id))); 
+				}, 0);
 
 				// For user switching
 				
